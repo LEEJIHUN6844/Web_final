@@ -52,6 +52,24 @@ export default function Home() {
       forks_count: 0,
       html_url: "https://crud-woad-five.vercel.app",
     },
+    {
+      id: 99904,
+      name: "Web_final",
+      description: "현재 보고 계신 최종 포트폴리오 웹사이트입니다.",
+      language: "Next.js",
+      stargazers_count: 0,
+      forks_count: 0,
+      html_url: "https://web-final-indol.vercel.app",
+    },
+    {
+      id: 99905,
+      name: "shopping",
+      description: "쇼핑몰 사이트입니다",
+      language: "Next.js",
+      stargazers_count: 0,
+      forks_count: 0,
+      html_url: "https://shopping-navy-five.vercel.app",
+    },
   ];
 
   useEffect(() => {
