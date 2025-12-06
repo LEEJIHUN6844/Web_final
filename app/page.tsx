@@ -1,9 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import Header from "@/components/header";
 import RepoGrid from "@/components/repo-grid";
-import { Github, Globe, Triangle } from "lucide-react";
+import { Github, Globe, Triangle, Users } from "lucide-react";
+import { motion } from "framer-motion"; // [추가] 애니메이션을 위해 import
 
 interface Repo {
   id: number;
@@ -31,7 +33,6 @@ export default function Home() {
       language: "TypeScript",
       stargazers_count: 0,
       forks_count: 0,
-
       html_url: "https://clerk-app-orcin.vercel.app",
     },
     {
@@ -59,7 +60,7 @@ export default function Home() {
       language: "Next.js",
       stargazers_count: 0,
       forks_count: 0,
-      html_url: "https://web-final-indol.vercel.app",
+      html_url: "https://web-final-five-sigma.vercel.app",
     },
     {
       id: 99905,
@@ -97,22 +98,58 @@ export default function Home() {
 
   const displayData = activeTab === "github" ? repos : vercelProjects;
 
+  // 애니메이션 설정값
+  const fadeInUp = {
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.5 },
+  };
+
   return (
     <main className="min-h-screen">
       <Header />
 
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
-          <div className="mb-8 text-center">
+          {/* [애니메이션 추가] 팀 프로젝트 페이지 이동 버튼 */}
+          <motion.div
+            className="flex justify-center mb-16"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }} // Header 이후 0.2초 뒤 시작
+          >
+            <Link
+              href="/team"
+              className="group relative inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-primary to-purple-600 text-white rounded-2xl font-bold text-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
+            >
+              <Users className="w-6 h-6" />
+              <span>팀 프로젝트 & 팀원 소개 보러가기</span>
+              <div className="absolute inset-0 rounded-2xl bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity" />
+            </Link>
+          </motion.div>
+
+          {/* [애니메이션 추가] My Projects 제목 */}
+          <motion.div
+            className="mb-8 text-center"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          >
             <h2 className="text-4xl font-bold text-foreground mb-3">
               My Projects
             </h2>
             <p className="text-muted-foreground">
               작업한 GitHub 레포지토리와 Vercel 배포 프로젝트를 확인해보세요.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="flex justify-center mb-12">
+          {/* [애니메이션 추가] 탭 버튼 */}
+          <motion.div
+            className="flex justify-center mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+          >
             <div className="inline-flex p-1 bg-secondary rounded-full border border-border">
               <button
                 onClick={() => setActiveTab("github")}
@@ -137,34 +174,41 @@ export default function Home() {
                 Vercel Projects
               </button>
             </div>
-          </div>
+          </motion.div>
 
-          {activeTab === "github" && loading && (
-            <div className="text-center py-12">
-              <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-              <p className="mt-4 text-muted-foreground">
-                Loading repositories...
-              </p>
-            </div>
-          )}
-
-          {error && (
-            <div className="bg-destructive/10 border border-destructive/20 rounded-lg p-4 text-destructive text-center">
-              {error}
-            </div>
-          )}
-
-          {(!loading || activeTab === "vercel") && !error && (
-            <RepoGrid key={activeTab} repos={displayData} />
-          )}
-
-          {(!loading || activeTab === "vercel") &&
-            !error &&
-            displayData.length === 0 && (
-              <div className="text-center py-20 text-muted-foreground">
-                표시할 프로젝트가 없습니다.
+          {/* [애니메이션 추가] 로딩, 에러, 그리드 영역 */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+          >
+            {activeTab === "github" && loading && (
+              <div className="text-center py-12">
+                <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+                <p className="mt-4 text-muted-foreground">
+                  Loading repositories...
+                </p>
               </div>
             )}
+
+            {error && (
+              <div className="bg-destructive/10 border border-destructive/20 rounded-lg p-4 text-destructive text-center">
+                {error}
+              </div>
+            )}
+
+            {(!loading || activeTab === "vercel") && !error && (
+              <RepoGrid key={activeTab} repos={displayData} />
+            )}
+
+            {(!loading || activeTab === "vercel") &&
+              !error &&
+              displayData.length === 0 && (
+                <div className="text-center py-20 text-muted-foreground">
+                  표시할 프로젝트가 없습니다.
+                </div>
+              )}
+          </motion.div>
         </div>
       </section>
 

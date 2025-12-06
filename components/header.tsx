@@ -13,6 +13,21 @@ export default function Header() {
     { name: "Node.js", icon: Database },
   ];
 
+  // 무한 스크롤 애니메이션 설정
+  const marqueeVariants = {
+    animate: {
+      x: ["0%", "-25%"], // 데이터가 4번 반복되므로 25%만큼 이동하면 처음과 자연스럽게 이어짐
+      transition: {
+        x: {
+          repeat: Infinity,
+          repeatType: "loop",
+          duration: 15, // 속도 조절 (숫자가 클수록 느려짐)
+          ease: "linear",
+        },
+      },
+    },
+  };
+
   return (
     <header className="relative overflow-hidden pt-32 pb-20 px-4 sm:px-6 lg:px-8">
       {/* 배경 그라디언트 효과 (Glassmorphism 느낌 강화) */}
@@ -63,22 +78,36 @@ export default function Header() {
           <br /> 풀스택 개발 역량을 키우고 있습니다.
         </motion.p>
 
-        {/* Tech Stack 섹션 */}
+        {/* Tech Stack 섹션 - 무한 스크롤 적용 */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="flex flex-wrap justify-center gap-3"
+          className="relative max-w-3xl mx-auto"
         >
-          {techStack.map((tech, index) => (
-            <div
-              key={tech.name}
-              className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/50 dark:bg-white/5 border border-border/50 backdrop-blur-sm shadow-sm hover:border-primary/50 hover:bg-primary/5 transition-all duration-300 cursor-default"
+          {/* 양옆을 흐리게 해주는 마스크 효과 */}
+          <div className="overflow-hidden w-full mask-linear-gradient p-2">
+            <motion.div
+              className="flex gap-4 w-max"
+              variants={marqueeVariants}
+              animate="animate"
             >
-              <tech.icon size={16} className="text-primary" />
-              <span className="text-sm font-medium">{tech.name}</span>
-            </div>
-          ))}
+              {/* 리스트를 4번 반복하여 끊김 없는 스크롤 구현 */}
+              {[...techStack, ...techStack, ...techStack, ...techStack].map(
+                (tech, index) => (
+                  <div
+                    key={`${tech.name}-${index}`}
+                    className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/50 dark:bg-white/5 border border-border/50 backdrop-blur-sm shadow-sm hover:border-primary/50 hover:bg-primary/5 transition-colors duration-300 cursor-default"
+                  >
+                    <tech.icon size={18} className="text-primary" />
+                    <span className="text-sm font-semibold whitespace-nowrap">
+                      {tech.name}
+                    </span>
+                  </div>
+                )
+              )}
+            </motion.div>
+          </div>
         </motion.div>
       </div>
     </header>
