@@ -21,8 +21,8 @@ const teamProject = {
     "Naver Search API",
     "Node.js",
   ],
-  repoUrl: "추가예정",
-  deployUrl: "추가에정",
+  repoUrl: "https://github.com/LEEJIHUN6844/Web_Server_Team",
+  deployUrl: "https://security-news-258137341860.asia-northeast1.run.app/",
 };
 
 const teamMembers = [
@@ -30,14 +30,14 @@ const teamMembers = [
     name: "김서진",
     role: "92212764/ Team Leader",
     bio: "개인 포트폴리오 보러가기 ↓",
-    github: "https://web-final-five-sigma.vercel.app",
+    github: " https://webserver-final-portfolio.vercel.app/",
     imageUrl: "/images/kimseojin.jpg",
   },
   {
     name: "박한빈",
     role: "922128677",
     bio: "개인 포트폴리오 보러가기 ↓",
-    github: "https://web-final-five-sigma.vercel.app",
+    github: "https://2025-2-mypage.vercel.app/",
     imageUrl: "/images/parkhanbin.jpg",
   },
   {
@@ -51,7 +51,7 @@ const teamMembers = [
     name: "윤주혁",
     role: "924108477",
     bio: "개인 포트폴리오 보러가기 ↓",
-    github: "https://web-final-five-sigma.vercel.app",
+    github: "https://web-server-final-theta.vercel.app/",
     imageUrl: "/images/younjuhyeok.jpg",
   },
 ];
